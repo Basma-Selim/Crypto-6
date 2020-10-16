@@ -14,7 +14,7 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			dataToDisplay: lastDayData,
+			dataToDisplay: lastYearData,
 			isDataUpdated: true,
 			period: '1DAY',
 		};
@@ -22,13 +22,10 @@ class App extends React.Component {
 	}
 
 	handleChange(event) {
-		event.preventDefault();
-		//console.log(event.target.value);
 		this.setState({
 			period: event.target.value,
 			dataToDisplay: periodSelector[event.target.value],
 		});
-		//console.log(this.state.dataToDisplay);
 	}
 	componentDidMount() {
 		/* 		axios.get('/api/CryptoCurr').then((data) => {
@@ -44,9 +41,12 @@ class App extends React.Component {
 			<div>
 				<h1>Crypto 6</h1>
 				{this.state.isDataUpdated && (
-					<CryptoGraph dataToDisplay={this.state.dataToDisplay} />
+					<CryptoGraph
+						period={this.state.period}
+						dataToDisplay={this.state.dataToDisplay}
+						key={this.state.dataToDisplay[0].volume_traded}
+					/>
 				)}
-
 				<label>
 					Pick your period time frame:
 					<select value={this.state.period} onChange={this.handleChange}>

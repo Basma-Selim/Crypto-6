@@ -12,7 +12,6 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/api/CryptoCurr', function (req, res) {
 	gatherBitcoinInfos1Day((response) => {
-		console.log('gather Bitcoin infos called');
 		res.send(response);
 	});
 });
