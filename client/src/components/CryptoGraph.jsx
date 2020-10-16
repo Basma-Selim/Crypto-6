@@ -1,23 +1,9 @@
 import React from 'react';
 import Chart from 'chart.js';
-import historicalData from '../../../database/sample_data';
-import { Bar } from 'react-chartjs-2';
-var data = {
-	labels: historicalData.map((d) => d.time_period_end), //time
-	datasets: [
-		{
-			label: 'Daily Trades',
-			data: historicalData.map((p) => p.price_close), //values
-			fill: 'none',
-			backgroundColor: 'green',
-			pointRadius: 2,
-			borderColor: 'red',
-			borderWidth: 1,
-			lineTension: 0,
-		},
-	],
-};
-
+import lastDayData from '../../../database/sample_data_1DAY';
+import last10DaysData from '../../../database/sample_data_10DAYS';
+import lastYearData from '../../../database/sample_data_1YEAR';
+//import { Bar } from 'react-chartjs-2';
 var options = {
 	scales: {
 		xAxes: [
@@ -25,13 +11,6 @@ var options = {
 				type: 'time',
 				time: {
 					unit: 'month',
-				},
-			},
-		],
-		yAxes: [
-			{
-				ticks: {
-					min: 0,
 				},
 			},
 		],
@@ -45,6 +24,22 @@ class CryptoGraph extends React.Component {
 		this.canvasRef = React.createRef();
 	}
 	componentDidMount() {
+		var data = {
+			labels: this.props.dataToDisplay.map((d) => d.time_period_end), //time
+			datasets: [
+				{
+					label: 'Daily Trades',
+					data: this.props.dataToDisplay.map((p) => p.price_close), //values
+					fill: 'none',
+					backgroundColor: 'orange',
+					pointRadius: 2,
+					borderColor: 'orange',
+					borderWidth: 1,
+					lineTension: 0,
+				},
+			],
+		};
+
 		this.myChart = new Chart(this.canvasRef.current, {
 			type: 'line',
 			options: options,
