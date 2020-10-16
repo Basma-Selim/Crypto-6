@@ -12,20 +12,11 @@ app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/api/CryptoCurr', function (req, res) {
 	gatherBitcoinInfos1Day((response) => {
+		console.log('gather Bitcoin infos called');
 		res.send(response);
 	});
 });
 
-app.post('/api/CryptoCurr', function (req, res) {
-	//console.log(req.body);
-});
-
-/* app.patch('/api/CryptoCurr/:blogId', function (req, res) {
-	incrementViews(req.params).then((response) => {
-		res.send(response);
-	});
-});
- */
 app.listen(PORT, () => {
 	console.log(`Example app listening at http://localhost:${PORT}`);
 });

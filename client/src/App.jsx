@@ -2,10 +2,14 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CryptoGraph from './components/CryptoGraph.jsx';
 import axios from 'axios';
-import lastDayData from '../../../database/sample_data_1DAY';
-import last10DaysData from '../../../database/sample_data_10DAYS';
-import lastYearData from '../../../database/sample_data_1YEAR';
-
+import lastDayData from '../../database/sample_data_1DAY';
+import last10DaysData from '../../database/sample_data_10DAYS';
+import lastYearData from '../../database/sample_data_1YEAR';
+const periodSelector = {
+	'1DAY': lastDayData,
+	'10DAYS': last10DaysData,
+	'1YEAR': lastYearData,
+};
 class App extends React.Component {
 	constructor(props) {
 		super(props);
@@ -19,15 +23,21 @@ class App extends React.Component {
 
 	handleChange(event) {
 		event.preventDefault();
-		this.setState({ period: event.target.value });
+		//console.log(event.target.value);
+		this.setState({
+			period: event.target.value,
+			dataToDisplay: periodSelector[event.target.value],
+		});
+		//console.log(this.state.dataToDisplay);
 	}
 	componentDidMount() {
 		/* 		axios.get('/api/CryptoCurr').then((data) => {
-				this.setState({
-					dataToDisplay: data.data,
-					isDataUpdated: true,
-				});
-			}); */
+			console.log(data.data);
+			this.setState({
+				//dataToDisplay: data.data,
+				isDataUpdated: true,
+			});
+		}); */
 	}
 	render() {
 		return (

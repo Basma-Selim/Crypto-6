@@ -1,16 +1,13 @@
 import React from 'react';
 import Chart from 'chart.js';
-import lastDayData from '../../../database/sample_data_1DAY';
-import last10DaysData from '../../../database/sample_data_10DAYS';
-import lastYearData from '../../../database/sample_data_1YEAR';
-//import { Bar } from 'react-chartjs-2';
+
 var options = {
 	scales: {
 		xAxes: [
 			{
 				type: 'time',
 				time: {
-					unit: 'month',
+					unit: 'days',
 				},
 			},
 		],
@@ -20,12 +17,15 @@ var options = {
 class CryptoGraph extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = {};
+		console.log(this.props.dataToDisplay[0]);
 		this.canvasRef = React.createRef();
 	}
 	componentDidMount() {
 		var data = {
-			labels: this.props.dataToDisplay.map((d) => d.time_period_end), //time
+			labels: this.props.dataToDisplay.map((d) => {
+				//console.log(d.time_period_end);
+				d.time_period_end;
+			}), //time
 			datasets: [
 				{
 					label: 'Daily Trades',
