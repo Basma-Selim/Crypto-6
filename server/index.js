@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-//const { retrieveData } = require('../database/serverDBQueries.js');
+const { gatherBitcoinInfos1Day } = require('../fetchers/cryptoFetchers.js');
 const CryptoCurr = require('../database/CryptoCurr.js');
 
 const app = express();
@@ -12,13 +12,13 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/api/CryptoCurr', function (req, res) {
-	retrieveData().then((response) => {
-		res.send(response);
+	gatherBitcoinInfos1Day((response) => {
+		res.json("response");
 	});
 });
 
 app.post('/api/CryptoCurr', function (req, res) {
-	console.log(req.body);
+	//console.log(req.body);
 });
 
 app.patch('/api/CryptoCurr/:blogId', function (req, res) {
