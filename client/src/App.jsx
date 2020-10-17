@@ -2,9 +2,9 @@ import React from 'react';
 import ReactDOM from 'react-dom';
 import CryptoGraph from './components/CryptoGraph.jsx';
 import axios from 'axios';
-import lastDayData from '../../database/sample_data_1DAY';
-import last10DaysData from '../../database/sample_data_10DAYS';
-import lastYearData from '../../database/sample_data_1YEAR';
+import lastDayData from '../../database/sample_data_1DAYS.json';
+import last10DaysData from '../../database/sample_data_10DAYS.json';
+import lastYearData from '../../database/sample_data_365DAYS.json';
 const periodSelector = {
 	'1DAY': 1,
 	'10DAYS': 10,
@@ -21,35 +21,42 @@ class App extends React.Component {
 		this.state = {
 			dataToDisplay: '',
 			isDataUpdated: false,
-			period: '1YEAR',
+			period: '',
 		};
 		this.handleChange = this.handleChange.bind(this);
 	}
 
 	handleChange(event) {
-		this.setState({
-			period: event.target.value,
-		});
-		axios
-			.patch(`/api/CryptoCurr/${periodSelector[event.target.value]}`)
-			.then((result) =>
+		let period = event.target.value;
+		axios.patch(`/api/CryptoCurr/${periodSelector[period]}`).then((result) => {
+			if (Array.isArray(result.data)) {
 				this.setState({
 					dataToDisplay: result.data,
-				})
-			)
-			.catch(
+					period: period,
+				});
+			} else {
 				this.setState({
-					dataToDisplay: internetDownPeriodSelector[event.target.value],
-				})
-			);
+					dataToDisplay: internetDownPeriodSelector[period],
+					period: period,
+				});
+			}
+		});
 	}
 	componentDidMount() {
-		axios.get('/api/CryptoCurr').then((data) => {
-			this.setState({
-				dataToDisplay: data.data,
-				isDataUpdated: true,
-				period: '1DAY',
-			});
+		axios.get('/api/CryptoCurr').then((result) => {
+			if (Array.isArray(result.data)) {
+				this.setState({
+					dataToDisplay: result.data,
+					isDataUpdated: true,
+					period: '1DAY',
+				});
+			} else {
+				this.setState({
+					dataToDisplay: internetDownPeriodSelector['1DAY'],
+					isDataUpdated: true,
+					period: '1DAY',
+				});
+			}
 		});
 	}
 	render() {

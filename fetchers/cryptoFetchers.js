@@ -33,7 +33,7 @@ async function gatherBitcoinInfos(timeStart, callback) {
 				}
 			});
 		})
-		.catch((error) => console.log(error));
+		.catch((error) => callback(error));
 }
 
 module.exports.gatherBitcoinInfos = gatherBitcoinInfos;
