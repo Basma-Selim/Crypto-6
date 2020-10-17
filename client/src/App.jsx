@@ -6,6 +6,11 @@ import lastDayData from '../../database/sample_data_1DAY';
 import last10DaysData from '../../database/sample_data_10DAYS';
 import lastYearData from '../../database/sample_data_1YEAR';
 const periodSelector = {
+	'1DAY': 1,
+	'10DAYS': 10,
+	'1YEAR': 365,
+};
+const internetDownPeriodSelector = {
 	'1DAY': lastDayData,
 	'10DAYS': last10DaysData,
 	'1YEAR': lastYearData,
@@ -14,9 +19,9 @@ class App extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			dataToDisplay: lastYearData,
-			isDataUpdated: true,
-			period: '1DAY',
+			dataToDisplay: '',
+			isDataUpdated: false,
+			period: '1YEAR',
 		};
 		this.handleChange = this.handleChange.bind(this);
 	}
@@ -24,17 +29,28 @@ class App extends React.Component {
 	handleChange(event) {
 		this.setState({
 			period: event.target.value,
-			dataToDisplay: periodSelector[event.target.value],
 		});
+		axios
+			.patch(`/api/CryptoCurr/${periodSelector[event.target.value]}`)
+			.then((result) =>
+				this.setState({
+					dataToDisplay: result.data,
+				})
+			)
+			.catch(
+				this.setState({
+					dataToDisplay: internetDownPeriodSelector[event.target.value],
+				})
+			);
 	}
 	componentDidMount() {
-		/* 		axios.get('/api/CryptoCurr').then((data) => {
-			console.log(data.data);
+		axios.get('/api/CryptoCurr').then((data) => {
 			this.setState({
-				//dataToDisplay: data.data,
+				dataToDisplay: data.data,
 				isDataUpdated: true,
+				period: '1DAY',
 			});
-		}); */
+		});
 	}
 	render() {
 		return (

@@ -11,7 +11,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/api/CryptoCurr', function (req, res) {
-	gatherBitcoinInfos((response) => {
+	gatherBitcoinInfos(1, (response) => {
+		res.send(response);
+	});
+});
+app.patch('/api/CryptoCurr/:period', function (req, res) {
+	gatherBitcoinInfos(req.params.period, (response) => {
 		res.send(response);
 	});
 });
