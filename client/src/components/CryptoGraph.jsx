@@ -1,14 +1,18 @@
 import React from 'react';
 import Chart from 'chart.js';
-
-const options = () => {
+const timeUnitSelector = {
+	'1DAY': 'hours',
+	'10DAYS': 'days',
+	'1YEAR': 'weeks',
+};
+const options = (period) => {
 	return {
 		scales: {
 			xAxes: [
 				{
 					type: 'time',
 					time: {
-						unit: 'days',
+						unit: `${period}`,
 					},
 				},
 			],
@@ -48,7 +52,7 @@ class CryptoGraph extends React.Component {
 	componentDidMount() {
 		this.myChart = new Chart(this.canvasRef.current, {
 			type: 'line',
-			options: options(),
+			options: options(timeUnitSelector[this.props.period]),
 			data: data(this.props, this.props.period),
 		});
 	}
