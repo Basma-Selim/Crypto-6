@@ -6,7 +6,7 @@ const pathForSample =
 	'/Users/selim/Documents/5.Formation RBK/7.Assessment/MVP/Crypto-6/database/sample_data_10DAYS.json';
 // In this function, you'll use the request npm module to fetch a user's repositories from the Github API
 
-async function gatherBitcoinInfos1Day(callback) {
+async function gatherBitcoinInfos(callback) {
 	const symbol_id = 'BITSTAMP_SPOT_BTC_USD';
 	const period_id = '4HRS';
 	const time_start = new Date(
@@ -34,4 +34,4 @@ async function gatherBitcoinInfos1Day(callback) {
 		.catch((error) => console.log(error));
 }
 
-module.exports.gatherBitcoinInfos1Day = gatherBitcoinInfos1Day;
+module.exports.gatherBitcoinInfos = gatherBitcoinInfos;
