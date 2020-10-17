@@ -1,71 +1,57 @@
-import React, { Component } from 'react';
-import './login.css';
+import React, { Component } from "react";
+import axios from "axios";
 
- class Login extends Component {
-    constructor(props) {
-      super(props);
+export default class Login extends Component{
+  constructor(props){
+    super(props);
+    this.state={
+      email:"",
+      password:"",
+      loginErrors:""
+ 
+    };
+this.handleSubmit = this.handleChange.bind(this);
+this.handleChange = this.handleChange.bind(this);
+}
+handleChange(event){
+  this.setState({
+    [event.target.name] : event.target.value
+  });
+}
+handleSubmit(event){
+  const {email,password}=this.state;
+  axios
+  .post(
+    "http://localhost:3001.sessions",
+    {
+      user:{
+        email:email,
+        password:password,
+       
+      }
+    },
+   { withCredentials:true}
+  )
+  .then(response=>{
+    if(response.data.logged_in){
+      this.props.handleSuccessfulAuth(response.data);
     }
-    render() {
-                 
-         
-      return (
-          
-        <div className="container" >
-        <div className="card-wrap">
-          <div className="card border-0 shadow card--welcome is-show" id="welcome">
-            <div className="card-body">
-              <h2 className="card-title">WELCOME</h2>
-              <p>Welcome to the login page</p>
-              <div className="btn-wrap"><a className="btn btn-lg btn-register js-btn" data-target="register">REGISTER</a><a className="btn btn-lg btn-login js-btn" data-target="login">LOGIN</a></div>
-            </div>
-          </div>
-          <div className="card border-0 shadow card--register" id="register">
-            <div className="card-body">
-              <h2 className="card-title">Create Account</h2>
-              <p className="card-text">Enter your personal details<br/>and start journey with us</p>
-              <p className="badge-wrap"><a className="badge"><i className="fab fa-facebook-f"></i></a><a className="badge"><i className="fab fa-google"></i></a><a className="badge"><i className="fab fa-twitter"></i></a><a className="badge"><i className="fab fa-github"></i></a></p>
-              <p>or use your email for registration</p>
-              <form>
-                <div className="form-group">
-                  <input className="form-control" type="text" placeholder="Name" required="required"/>
-                </div>
-                <div className="form-group">
-                  <input className="form-control" type="email" placeholder="Email" required="required"/>
-                </div>
-                <div className="form-group">
-                  <input className="form-control" type="password" placeholder="Password" required="required"/>
-                </div>
-                <button className="btn btn-lg">REGISTER</button>
-              </form>
-            </div>
-            <button className="btn btn-back js-btn" data-target="welcome"><i className="fas fa-angle-left"></i></button>
-          </div>
-          <div className="card border-0 shadow card--login" id="login">
-            <div className="card-body">
-              <h2 className="card-title">Welcome Back!</h2>
-              <p>To keep connected with us<br/>please login with your personal info</p>
-              <p className="badge-wrap"><a className="badge"><i className="fab fa-facebook-f"></i></a><a className="badge"><i className="fab fa-google"></i></a><a className="badge"><i className="fab fa-twitter"></i></a><a className="badge"><i className="fab fa-github"></i></a></p>
-              <p>or use your account</p>
-              <form>
-                <div className="form-group">
-                  <input className="form-control" type="email" placeholder="Email" required="required"/>
-                </div>
-                <div className="form-group">
-                  <input className="form-control" type="password" placeholder="Password" required="required"/>
-                </div>
-                <p><a>Forgot your password?</a></p>
-                <button className="btn btn-lg">LOGIN</button>
-              </form>
-            </div>
-            <button className="btn btn-back js-btn" data-target="welcome"><i className="fas fa-angle-left"></i></button>
-          </div>
-        </div>
-      </div>
+  })
+  .catch(error=>{
+    console.log("login error", error)
+  });
+  event.preventDefault();
+}
 
-
-    )
-    }
-  }
-  
-
-  export default Login;
+render(){
+  return(
+    <div>
+       <form onSubmit={this.handleSubmit}>
+       <input className="input1" type="email" name="email" placeholder="Email" value = {this.state.email} onChange={this.handleChange}required/>
+       <input className="input2" type="password" name="password" placeholder="Password" value = {this.state.password} onChange={this.handleChange}required/>
+        <button className="login" type="submit">Login</button>
+        </form>
+    </div>
+  );
+}
+}

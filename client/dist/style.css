@@ -19,16 +19,19 @@ body {
 
 .menu ul li{
     list-style: none;
-    margin: 0 20px;
+    margin: 0 40px;
     color: #b2b1b1;
     cursor: pointer;
-    text-decoration: underline;
+    
+    font-size: 25px;
 }
 
-.logo img{
+.logo img {
 width: 30px;
 margin-top: -7px;
 margin-right: 48px;
+background-color: white;
+
 }
 .active{
     color: #19dafa !important;
@@ -46,13 +49,29 @@ margin-right: 48px;
     background-clip: content-box,border-box;
 }
 
+
 .signup-btn span{
     display:block;
     padding: 8px 22px;
 }
 
+.reg-btn{
+    left: 40%;
+    position: absolute;
+    text-decoration: none;
+    color: #fff;
+    border: 2px solid transparent;
+    background-image: linear-gradient(#42455a,#42455a),radial-gradient(circle at top left,#fd00da,#19d7f8);
+    background-origin: border-box;
+    background-clip: content-box,border-box;
+}
 
 
+.reg-btn span{
+    display:block;
+    padding: 8px 22px;
+    font-size: 30px;
+}
 .app-text h2{
     font-size: 33px;
     font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
@@ -100,8 +119,8 @@ margin-right: 48px;
     transform: translate(-50%,-50%);
     padding-top: 10px;
     bottom: 0;
-    top: 280px;
-    width: 43%;
+    top: 113px;
+    width: 100%;
 
     background: linear-gradient(to right, #db1bf6,#19d7f9);
 }
@@ -116,22 +135,25 @@ margin-right: 48px;
     list-style: none;
     margin: 0 50px;
     cursor: pointer;
+    text-align: center;
 }
 .quick-links ul li .fa{
     font-size: 25px;
     color: #fff;
+    
 }
 .quick-links ul li p{
    margin-top: 15px;
    font-size: 10px;
    color: #fff;
+  
 }
 
 .social-icons{
     right: 72px;
-    bottom: 35px;
+    bottom: 140px;
     position: absolute;
-    
+    font-size: 20px;
     
 }
 .social-icons ul li{
@@ -151,8 +173,8 @@ margin-right: 48px;
 /*/*//*/***/
 
 .play-btn{
-    margin-top: 20px;
-    margin-left: 150px;
+    margin-top:150px;
+    margin-left: 0px;
     display: inline-flex;
 }
 .play-btn-inner{
@@ -168,18 +190,39 @@ margin-right: 48px;
 
 .play-btn-inner .fa{
     padding: 18px 0;
-    font-size: 13px;
+    font-size: 15px;
     cursor: pointer;
 }
 
-small{
+.see{
     margin: auto 20px;
     cursor: pointer;
-    font-size: 12px;
     color: #19dafa;
-    letter-spacing: 3px;
-    text-decoration: underline;
+    letter-spacing: 5px;
+    
+    font-size: 200%;
 }
+.input1{
+    position: relative;
+    top: 80px;
+    left: 700px;
+}
+.input2{
+    
+    position: relative;
+    top: 150px;
+    left: 515px;
+}
+.login{
+    width: 100px;
+    height: 30px;
+    position: relative;
+    top: 200px;
+    left: 380px;
+    background-color: rgb(108, 110, 235);
+}
+
+
 
 /*****************************************************************************************/
 
