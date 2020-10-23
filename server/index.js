@@ -1,6 +1,6 @@
 const express = require('express');
 const bodyParser = require('body-parser');
-const { gatherBitcoinInfos1Day } = require('../fetchers/cryptoFetchers.js');
+const { gatherBitcoinInfos } = require('../fetchers/cryptoFetchers.js');
 
 const app = express();
 const PORT = 3000;
@@ -11,8 +11,12 @@ app.use(bodyParser.urlencoded({ extended: true }));
 app.use(express.static(__dirname + '/../client/dist'));
 
 app.get('/api/CryptoCurr', function (req, res) {
-	gatherBitcoinInfos1Day((response) => {
-		console.log('gather Bitcoin infos called');
+	gatherBitcoinInfos(1, (response) => {
+		res.send(response);
+	});
+});
+app.patch('/api/CryptoCurr/:period', function (req, res) {
+	gatherBitcoinInfos(req.params.period, (response) => {
 		res.send(response);
 	});
 });

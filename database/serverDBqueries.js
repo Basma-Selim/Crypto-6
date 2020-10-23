@@ -4,10 +4,12 @@ const retrieveData = () => {
 	return CryptoCurr.find();
 };
 
-const incrementViews = (postID) => {
+const updateValues = (postID) => {
 	return CryptoCurr.findOneAndUpdate(
-		{ _id: postID.CryptoCurrId.substring(1) },
-		{ $inc: { views: 1 } },
+		{ _id: postID.CryptoCurrId },
+		{
+			/* Update instructions */
+		},
 		{ new: true }
 	);
 };
