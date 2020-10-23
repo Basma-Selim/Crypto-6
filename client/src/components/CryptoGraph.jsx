@@ -3,7 +3,7 @@ import Chart from 'chart.js';
 const timeUnitSelector = {
 	'1DAY': 'hours',
 	'10DAYS': 'days',
-	'1YEAR': 'weeks',
+	'1YEAR': 'months',
 };
 const options = (period) => {
 	return {
@@ -23,7 +23,6 @@ const options = (period) => {
 const data = (props, period) => {
 	return {
 		labels: props.dataToDisplay.map((d) => {
-			//console.log(d.time_period_end);
 			return d.time_period_end;
 		}), //time
 		datasets: [
