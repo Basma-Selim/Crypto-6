@@ -4,12 +4,12 @@ mongoose.Promise = global.Promise;
 
 const CryptoCurrSchema = new mongoose.Schema({
 	title: String,
-	CryptoCurrency: String,
+	cryptoCurrency: String,
 	FIATCurrency: String,
-	body: String,
+	period: String,
 	data: String,
 });
 
-const CryptoCurr = mongoose.model('Blog', CryptoCurrSchema);
+const CryptoCurr = mongoose.model('CryptoCurr', CryptoCurrSchema);
 
 module.exports = CryptoCurr;
